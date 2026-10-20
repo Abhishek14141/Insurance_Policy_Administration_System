@@ -33,6 +33,16 @@ public class MedicalUnderwriting {
     @Column(name = "alcohol")
     private Boolean alcohol;
 
+    @Column(name = "adventure_sports")
+    private Boolean adventureSports;
+
+    @Column(name = "frequent_international_travel")
+    private Boolean frequentInternationalTravel;
+
+    @Column(name = "dangerous_hobbies")
+    private Boolean dangerousHobbies;
+
+
     @Column(name = "medical_history", columnDefinition = "TEXT")
     private String medicalHistory;
 

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.insurance_policy_system.configuration.QuoteClient;
 import org.example.insurance_policy_system.dto.undertakingDto.*;
 import org.example.insurance_policy_system.entity.ApiResponse;
+import org.example.insurance_policy_system.entity.undertaking.FinancialUnderwriting;
 import org.example.insurance_policy_system.entity.undertaking.MedicalUnderwriting;
 import org.example.insurance_policy_system.entity.undertaking.UnderwritingCase;
 import org.example.insurance_policy_system.enums.UnderwritingStatus;
@@ -12,6 +13,7 @@ import org.example.insurance_policy_system.exception.StatusNotFound;
 import org.example.insurance_policy_system.exception.undertakingException.CaseIdNotFound;
 import org.example.insurance_policy_system.exception.undertakingException.QoteIsExpriy;
 import org.example.insurance_policy_system.exception.undertakingException.duplicateCaseId;
+import org.example.insurance_policy_system.repository.undertakingRepository.FinancialUnderwritingRepository;
 import org.example.insurance_policy_system.repository.undertakingRepository.MedicalUnderwritingRepository;
 import org.example.insurance_policy_system.repository.undertakingRepository.UnderwritingCaseRepository;
 import org.example.insurance_policy_system.service.undertakingService.UnderwritingService;
@@ -30,6 +32,7 @@ public class UnderwritingServiceImpl implements UnderwritingService {
     private final QuoteClient quoteClient;
     private final ModelMapper modelMapper;
     private final MedicalUnderwritingRepository medicalUnderwritingRepository;
+    private final FinancialUnderwritingRepository financialUnderwritingRepository;
 
     @Override
     public ApiResponse<UnderwritingResponseDto> createCase(UnderwritingRequestDto requestDto) {
@@ -95,7 +98,8 @@ public class UnderwritingServiceImpl implements UnderwritingService {
         log.info("Submitting medical assessment for caseId: {}", caseId);
         UnderwritingCase underwritingCase =
                 underwritingCaseRepository.findById(caseId).orElseThrow(() -> {
-                            log.warn("Case ID not found: {}", caseId);return new CaseIdNotFound("Underwriting case not found with ID: " + caseId);});
+                            log.warn("Case ID not found: {}", caseId);
+                            return new CaseIdNotFound("Underwriting case not found with ID: " + caseId);});
 
         //covert into request ko entity ke data mein
             MedicalUnderwriting medicalUnderwriting = modelMapper.map(requestDto, MedicalUnderwriting.class);
@@ -111,7 +115,41 @@ public class UnderwritingServiceImpl implements UnderwritingService {
 
     @Override
     public ApiResponse<UnderwritingResponseDto> submitFinancialAssessment(Long caseId, FinancialUnderwritingRequestDto requestDto) {
-        return null;
+        log.info("Submitting financial assessment for caseId: {}", caseId);
+        UnderwritingCase underwritingCase=underwritingCaseRepository.findById(caseId).orElseThrow(()->{
+                log.warn("Case ID not found: {}", caseId);
+        return new CaseIdNotFound("Underwriting case not found with ID: " + caseId);
+    } );
+        FinancialUnderwriting financialUnderwriting=modelMapper.map(requestDto, FinancialUnderwriting.class);
+        financialUnderwriting.setFinancialId(caseId);
+        financialUnderwritingRepository.save(financialUnderwriting);
+        UnderwritingResponseDto responseDto=modelMapper.map(underwritingCase, UnderwritingResponseDto.class);
+        log.info("financial assessment saved for caseId: {}", caseId);
+        return new ApiResponse<>(true, " assessment financial successfully", responseDto, LocalDateTime.now());
+
+    }
+
+    @Override
+    public ApiResponse<UnderwritingResponseDto> submitLifestyleAssessment(Long caseId, LifestyleUnderwritingRequestDto requestDto) {
+        log.info("Submitting lifeStyle assessment for caseId: {}", caseId);
+        UnderwritingCase underwritingCase=underwritingCaseRepository.findById(caseId).orElseThrow(()->{
+            log.warn("Case ID not found: {}", caseId);
+            return new CaseIdNotFound("Underwriting case not found with ID: " + caseId);
+        } );
+        MedicalUnderwriting medicalUnderwriting = medicalUnderwritingRepository.findFirstByUnderwritingCase(underwritingCase)
+                        .orElseThrow(() -> new IllegalStateException("Submit medical assessment before lifestyle assessment"));
+
+        medicalUnderwriting.setSmoking(requestDto.getSmoking());
+        medicalUnderwriting.setAlcohol(requestDto.getAlcoholConsumption());
+        medicalUnderwriting.setAdventureSports(requestDto.getAdventureSports());
+        medicalUnderwriting.setFrequentInternationalTravel(
+                requestDto.getFrequentInternationalTravel());
+        medicalUnderwriting.setDangerousHobbies(requestDto.getDangerousHobbies());
+        medicalUnderwritingRepository.save(medicalUnderwriting);
+        UnderwritingResponseDto responseDto = modelMapper.map(underwritingCase, UnderwritingResponseDto.class);
+        log.info("Lifestyle assessment saved for caseId: {}", caseId);
+        return new ApiResponse<>(true, "Lifestyle assessment submitted successfully", responseDto, LocalDateTime.now());
+
     }
 
     @Override

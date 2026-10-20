@@ -19,6 +19,8 @@ public interface UnderwritingService {
     ApiResponse<UnderwritingResponseDto> submitMedicalAssessment(Long caseId, MedicalUnderwritingRequestDto requestDto);
     //finanical submit hoga
     ApiResponse<UnderwritingResponseDto> submitFinancialAssessment(Long caseId, FinancialUnderwritingRequestDto requestDto);
+  ApiResponse<UnderwritingResponseDto> submitLifestyleAssessment(Long caseId, LifestyleUnderwritingRequestDto requestDto);
+
     //calcuate risk Score and catergory
     ApiResponse<UnderwritingResponseDto> calculateRisk(Long caseId);
     //calculate premium loading

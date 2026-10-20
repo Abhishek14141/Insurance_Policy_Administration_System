@@ -3,6 +3,7 @@ package org.example.insurance_policy_system.controller.undertakingController;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.insurance_policy_system.dto.undertakingDto.FinancialUnderwritingRequestDto;
 import org.example.insurance_policy_system.dto.undertakingDto.MedicalUnderwritingRequestDto;
 import org.example.insurance_policy_system.dto.undertakingDto.UnderwritingRequestDto;
 import org.example.insurance_policy_system.dto.undertakingDto.UnderwritingResponseDto;
@@ -39,6 +40,12 @@ public class UnderwritingController {
     @PostMapping("/cases/{caseId}/medical-assessment")
     public ResponseEntity<ApiResponse<UnderwritingResponseDto>> submitMedicalAssessment(@PathVariable Long caseId, @Valid @RequestBody MedicalUnderwritingRequestDto requestDto){
         ApiResponse<UnderwritingResponseDto> response=underwritingService.submitMedicalAssessment(caseId,requestDto);
+        return  ResponseEntity.ok(response);
+    }
+    @PostMapping("/cases/{caseId}/financial-assessment")
+
+    public ResponseEntity<ApiResponse<UnderwritingResponseDto>> submitFinancialAssessment(@PathVariable Long caseId, @Valid @RequestBody FinancialUnderwritingRequestDto financialUnderwritingRequestDto){
+        ApiResponse<UnderwritingResponseDto> response=underwritingService.submitFinancialAssessment(caseId,financialUnderwritingRequestDto);
         return  ResponseEntity.ok(response);
     }
 }
