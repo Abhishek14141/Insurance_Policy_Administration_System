@@ -17,7 +17,7 @@ public class ClaimSettlement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "settlement_id")
+    @Column(name = "settlement_id")
     private  Long settlementId;
 
     @Column(name = "claim_id")
