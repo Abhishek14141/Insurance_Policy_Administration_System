@@ -15,12 +15,4 @@ public class UnderwritingRequestDto {
     @NotNull
     @Positive
     private Long quoteId;
-
-    @NotNull
-    @Positive
-    private Long customerId;
-
-    @NotNull
-    @Positive
-    private Long productId;
 }

@@ -2,12 +2,14 @@ package org.example.insurance_policy_system.entity.undertaking;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.example.insurance_policy_system.enums.UnderwritingStatus;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "underwriting_case")
+@Data
 public class UnderwritingCase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

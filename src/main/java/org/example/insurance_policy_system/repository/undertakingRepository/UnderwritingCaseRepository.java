@@ -14,4 +14,7 @@ public interface UnderwritingCaseRepository extends JpaRepository<UnderwritingCa
     List<UnderwritingCase> findByQuoteId(Long quoteId);
     List<UnderwritingCase> findByStatus(UnderwritingStatus status);
 
+    boolean existsByQuoteId(Long quoteId);
+
+
 }

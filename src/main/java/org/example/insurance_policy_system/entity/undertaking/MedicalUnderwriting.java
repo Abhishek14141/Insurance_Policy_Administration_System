@@ -1,9 +1,11 @@
 package org.example.insurance_policy_system.entity.undertaking;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
 @Entity
+@Data
 @Table(name = "medical_underwriting")
 public class MedicalUnderwriting {
 
