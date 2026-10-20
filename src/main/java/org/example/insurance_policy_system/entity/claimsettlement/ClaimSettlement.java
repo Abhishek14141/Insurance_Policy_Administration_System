@@ -3,7 +3,7 @@ package org.example.insurance_policy_system.entity.claimsettlement;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.insurance_policy_system.enums.SettlementStatus;
+import org.example.insurance_policy_system.enums.claimsettlement.SettlementStatus;
 
 
 import java.math.BigDecimal;
