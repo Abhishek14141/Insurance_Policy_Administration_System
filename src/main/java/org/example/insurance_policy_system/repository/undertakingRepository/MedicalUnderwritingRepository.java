@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface MedicalUnderwritingRepository extends JpaRepository<MedicalUnderwriting,Long> {
-    List<MedicalUnderwriting> findByUnderwritingCase_Id(Long underwritingId);
+    List<MedicalUnderwriting> findByUnderwritingCase_UnderwritingId(Long underwritingId);
 }

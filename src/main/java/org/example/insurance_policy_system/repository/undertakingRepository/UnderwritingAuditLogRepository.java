@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface UnderwritingAuditLogRepository extends JpaRepository<UnderwritingAuditLog,Long> {
-    List<UnderwritingAuditLog> findByUnderwritingCase_Id(Long underwritingId);
+    List<UnderwritingAuditLog> findByUnderwritingCase_UnderwritingId(Long underwritingId);
 
 }
 

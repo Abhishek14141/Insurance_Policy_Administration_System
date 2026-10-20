@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface FinancialUnderwritingRepository extends JpaRepository<FinancialUnderwriting,Long> {
-    List<FinancialUnderwriting> findByUnderwritingCase_Id(Long underwritingId);
+    List<FinancialUnderwriting> findByUnderwritingCase_UnderwritingId(Long underwritingId);
 }

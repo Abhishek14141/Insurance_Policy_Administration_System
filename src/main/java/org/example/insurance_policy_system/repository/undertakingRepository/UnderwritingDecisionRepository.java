@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface UnderwritingDecisionRepository extends JpaRepository<UnderwritingDecision,Long> {
-    List<UnderwritingDecision> findByUnderwritingCase_Id(Long underwritingId);
-}
+    List<UnderwritingDecision> findByUnderwritingCase_UnderwritingId(Long underwritingId);}

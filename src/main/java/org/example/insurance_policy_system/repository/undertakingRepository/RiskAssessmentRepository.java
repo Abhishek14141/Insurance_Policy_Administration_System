@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RiskAssessmentRepository extends JpaRepository<RiskAssessment,Long> {
-    List<RiskAssessment> findByUnderwritingCase_Id(Long underwritingId);
+    List<RiskAssessment> findByUnderwritingCase_UnderwritingId(Long underwritingId);
 }
