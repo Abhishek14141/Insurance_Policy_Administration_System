@@ -14,8 +14,11 @@ public class MedicalUnderwritingResponseDto {
     private BigDecimal height;
     private BigDecimal weight;
     private BigDecimal bmi;
-    private Boolean smoking;
-    private Boolean alcohol;
     private String medicalHistory;
     private String medicalReportPath;
+    private Boolean smoking;
+    private Boolean alcoholConsumption;
+    private Boolean adventureSports;
+    private Boolean frequentInternationalTravel;
+    private Boolean dangerousHobbies;
 }

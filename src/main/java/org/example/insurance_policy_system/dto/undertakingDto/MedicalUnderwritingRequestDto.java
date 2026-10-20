@@ -12,8 +12,7 @@ public class MedicalUnderwritingRequestDto {
     private BigDecimal height;
     private BigDecimal weight;
     private BigDecimal bmi;
-    private Boolean smoking;
-    private Boolean alcohol;
+    private Integer age;
     private String medicalHistory;
     private String medicalReportPath;
 

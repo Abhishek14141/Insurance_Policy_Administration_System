@@ -27,6 +27,8 @@ public class MedicalUnderwriting {
     @Column(name = "bmi", precision = 5, scale = 2)
     private BigDecimal bmi;
 
+    @Column(name = "age")
+    private Integer age;
     @Column(name = "smoking")
     private Boolean smoking;
 
