@@ -16,13 +16,13 @@ public interface UnderwritingService {
   //saari customer ki case
     ApiResponse<List<UnderwritingResponseDto>>  getAllCase();
     //medical submit hoga
-    ApiResponse<UnderwritingResponseDto> submitMedicalAssessment(Long caseId, MedicalUnderwritingRequestDto requestDto);
+    ApiResponse<MedicalUnderwritingResponseDto> submitMedicalAssessment(Long caseId, MedicalUnderwritingRequestDto requestDto);
     //finanical submit hoga
-    ApiResponse<UnderwritingResponseDto> submitFinancialAssessment(Long caseId, FinancialUnderwritingRequestDto requestDto);
-  ApiResponse<UnderwritingResponseDto> submitLifestyleAssessment(Long caseId, LifestyleUnderwritingRequestDto requestDto);
+    ApiResponse<FinancialUnderwritingResponseDto> submitFinancialAssessment(Long caseId, FinancialUnderwritingRequestDto requestDto);
+  ApiResponse<LifestyleUnderwritingResponseDto> submitLifestyleAssessment(Long caseId, LifestyleUnderwritingRequestDto requestDto);
 
     //calcuate risk Score and catergory
-    ApiResponse<UnderwritingResponseDto> calculateRisk(Long caseId);
+    ApiResponse<RiskAssessmentResponseDto> calculateRisk(Long caseId);
     //calculate premium loading
     ApiResponse<UnderwritingResponseDto> calculatePremiumLoading(Long caseId);
     //Approve case

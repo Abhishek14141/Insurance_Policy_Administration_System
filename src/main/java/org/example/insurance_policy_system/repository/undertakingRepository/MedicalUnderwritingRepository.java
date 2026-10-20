@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface MedicalUnderwritingRepository extends JpaRepository<MedicalUnderwriting,Long> {
     List<MedicalUnderwriting> findByUnderwritingCase_UnderwritingId(Long underwritingId);
     Optional<MedicalUnderwriting> findFirstByUnderwritingCase(UnderwritingCase underwritingCase);
+
 }

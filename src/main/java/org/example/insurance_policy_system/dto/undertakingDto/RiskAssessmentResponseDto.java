@@ -12,6 +12,7 @@ public class RiskAssessmentResponseDto {
 
     private Long riskId;
     private Long underwritingId;
+    private Integer ageScore;
     private Integer medicalScore;
     private Integer occupationScore;
     private Integer lifestyleScore;

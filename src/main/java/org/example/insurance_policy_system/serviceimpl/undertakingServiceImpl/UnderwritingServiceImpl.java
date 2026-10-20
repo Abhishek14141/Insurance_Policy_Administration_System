@@ -94,7 +94,7 @@ public class UnderwritingServiceImpl implements UnderwritingService {
     }
 
     @Override
-    public ApiResponse<UnderwritingResponseDto> submitMedicalAssessment(Long caseId, MedicalUnderwritingRequestDto requestDto) {
+    public ApiResponse<MedicalUnderwritingResponseDto> submitMedicalAssessment(Long caseId, MedicalUnderwritingRequestDto requestDto) {
         log.info("Submitting medical assessment for caseId: {}", caseId);
         UnderwritingCase underwritingCase =
                 underwritingCaseRepository.findById(caseId).orElseThrow(() -> {
@@ -105,7 +105,7 @@ public class UnderwritingServiceImpl implements UnderwritingService {
             MedicalUnderwriting medicalUnderwriting = modelMapper.map(requestDto, MedicalUnderwriting.class);
             medicalUnderwriting.setMedicalId(caseId);
             medicalUnderwritingRepository.save(medicalUnderwriting);
-            UnderwritingResponseDto underwritingResponseDto = modelMapper.map(underwritingCase, UnderwritingResponseDto.class);
+        MedicalUnderwritingResponseDto underwritingResponseDto = modelMapper.map(underwritingCase, MedicalUnderwritingResponseDto.class);
             log.info("Medical assessment saved for caseId: {}", caseId);
             return new ApiResponse<>(true, "Medical assessment submitted successfully", underwritingResponseDto, LocalDateTime.now());
 
@@ -114,7 +114,7 @@ public class UnderwritingServiceImpl implements UnderwritingService {
     }
 
     @Override
-    public ApiResponse<UnderwritingResponseDto> submitFinancialAssessment(Long caseId, FinancialUnderwritingRequestDto requestDto) {
+    public ApiResponse<FinancialUnderwritingResponseDto> submitFinancialAssessment(Long caseId, FinancialUnderwritingRequestDto requestDto) {
         log.info("Submitting financial assessment for caseId: {}", caseId);
         UnderwritingCase underwritingCase=underwritingCaseRepository.findById(caseId).orElseThrow(()->{
                 log.warn("Case ID not found: {}", caseId);
@@ -123,14 +123,14 @@ public class UnderwritingServiceImpl implements UnderwritingService {
         FinancialUnderwriting financialUnderwriting=modelMapper.map(requestDto, FinancialUnderwriting.class);
         financialUnderwriting.setFinancialId(caseId);
         financialUnderwritingRepository.save(financialUnderwriting);
-        UnderwritingResponseDto responseDto=modelMapper.map(underwritingCase, UnderwritingResponseDto.class);
+        FinancialUnderwritingResponseDto responseDto=modelMapper.map(underwritingCase, FinancialUnderwritingResponseDto.class);
         log.info("financial assessment saved for caseId: {}", caseId);
         return new ApiResponse<>(true, " assessment financial successfully", responseDto, LocalDateTime.now());
 
     }
 
     @Override
-    public ApiResponse<UnderwritingResponseDto> submitLifestyleAssessment(Long caseId, LifestyleUnderwritingRequestDto requestDto) {
+    public ApiResponse<LifestyleUnderwritingResponseDto> submitLifestyleAssessment(Long caseId, LifestyleUnderwritingRequestDto requestDto) {
         log.info("Submitting lifeStyle assessment for caseId: {}", caseId);
         UnderwritingCase underwritingCase=underwritingCaseRepository.findById(caseId).orElseThrow(()->{
             log.warn("Case ID not found: {}", caseId);
@@ -146,15 +146,175 @@ public class UnderwritingServiceImpl implements UnderwritingService {
                 requestDto.getFrequentInternationalTravel());
         medicalUnderwriting.setDangerousHobbies(requestDto.getDangerousHobbies());
         medicalUnderwritingRepository.save(medicalUnderwriting);
-        UnderwritingResponseDto responseDto = modelMapper.map(underwritingCase, UnderwritingResponseDto.class);
+        LifestyleUnderwritingResponseDto responseDto = modelMapper.map(underwritingCase, LifestyleUnderwritingResponseDto.class);
         log.info("Lifestyle assessment saved for caseId: {}", caseId);
         return new ApiResponse<>(true, "Lifestyle assessment submitted successfully", responseDto, LocalDateTime.now());
 
     }
 
     @Override
-    public ApiResponse<UnderwritingResponseDto> calculateRisk(Long caseId) {
-        return null;
+    public ApiResponse<RiskAssessmentResponseDto> calculateRisk(Long caseId) {
+        UnderwritingCase underwritingCase = underwritingCaseRepository
+                .findById(caseId)
+                .orElseThrow(() ->
+                        new RuntimeException("Underwriting case not found: " + caseId));
+
+        MedicalUnderwriting medical = medicalUnderwritingRepository
+                .findByUnderwritingCase_UnderwritingId(caseId).orElseThrow(() ->
+                        new RuntimeException("Medical assessment not found"));
+
+        FinancialUnderwriting financial = financialUnderwritingRepository
+                .findByUnderwritingCase_UnderwritingId(caseId).orElseThrow(() ->
+                        new RuntimeException("Financial assessment not found"));
+
+        // 1. Age score: maximum 20
+        int age = medical.getAge();
+        int ageScore;
+
+        if (age < 21) {
+            ageScore = 20;
+        } else if (age <= 30) {
+            ageScore = 5;
+        } else if (age <= 45) {
+            ageScore = 10;
+        } else if (age <= 60) {
+            ageScore = 15;
+        } else {
+            ageScore = 20;
+        }
+
+        // 2. Medical score: maximum 30
+        int medicalScore = 0;
+
+        if (medical.getBmi() != null) {
+            double bmi = medical.getBmi().doubleValue();
+
+            if (bmi < 18.5 || bmi >= 30) {
+                medicalScore += 15;
+            } else if (bmi >= 25) {
+                medicalScore += 8;
+            }
+        }
+
+        if (medical.getMedicalHistory() != null
+                && !medical.getMedicalHistory().isBlank()) {
+            medicalScore += 15;
+        }
+
+        medicalScore = Math.min(medicalScore, 30);
+
+        // 3. Occupation score: maximum 20
+        String occupation = financial.getOccupation() == null
+                ? ""
+                : financial.getOccupation().trim().toLowerCase();
+
+        int occupationScore;
+
+        if (occupation.contains("miner")) {
+            occupationScore = 20;
+        } else if (occupation.contains("police")
+                || occupation.contains("firefighter")
+                || occupation.contains("pilot")) {
+            occupationScore = 15;
+        } else if (occupation.contains("doctor")) {
+            occupationScore = 10;
+        } else {
+            // Low-risk examples: software engineer, teacher
+            occupationScore = 5;
+        }
+
+        // 4. Lifestyle score: maximum 20
+        int lifestyleScore = 0;
+
+        if (Boolean.TRUE.equals(medical.getSmoking())) {
+            lifestyleScore += 4;
+        }
+
+        if (Boolean.TRUE.equals(medical.getAlcohol())) {
+            lifestyleScore += 4;
+        }
+
+        if (Boolean.TRUE.equals(medical.getAdventureSports())) {
+            lifestyleScore += 4;
+        }
+
+        if (Boolean.TRUE.equals(medical.getFrequentInternationalTravel())) {
+            lifestyleScore += 4;
+        }
+
+        if (Boolean.TRUE.equals(medical.getDangerousHobbies())) {
+            lifestyleScore += 4;
+        }
+
+        // 5. Financial stability score: maximum 10
+        int financialScore = 0;
+
+        BigDecimal income = financial.getAnnualIncome();
+        BigDecimal liabilities = financial.getLoanLiability();
+
+        if (income == null || income.compareTo(BigDecimal.ZERO) <= 0) {
+            financialScore = 10;
+        } else {
+            BigDecimal liabilityRatio = liabilities == null
+                    ? BigDecimal.ZERO
+                    : liabilities.divide(income, 4,
+                    java.math.RoundingMode.HALF_UP);
+
+            if (liabilityRatio.compareTo(new BigDecimal("0.50")) > 0) {
+                financialScore = 10;
+            } else if (liabilityRatio.compareTo(new BigDecimal("0.25")) > 0) {
+                financialScore = 5;
+            }
+        }
+
+        // Total score: maximum 100
+        int totalScore = ageScore + medicalScore
+                + occupationScore + lifestyleScore + financialScore;
+
+        // Risk category as per BRD
+        RiskLevel riskCategory;
+
+        if (totalScore <= 30) {
+            riskCategory = RiskLevel.LOW;
+        } else if (totalScore <= 60) {
+            riskCategory = RiskLevel.MEDIUM;
+        } else if (totalScore <= 80) {
+            riskCategory = RiskLevel.HIGH;
+        } else {
+            riskCategory = RiskLevel.VERY_HIGH;
+        }
+
+        // Save risk assessment
+        RiskAssessment assessment = new RiskAssessment();
+        assessment.setUnderwritingCase(underwritingCase);
+        assessment.setAgeScore(ageScore);
+        assessment.setMedicalScore(medicalScore);
+        assessment.setOccupationScore(occupationScore);
+        assessment.setLifestyleScore(lifestyleScore);
+        assessment.setFinancialScore(financialScore);
+        assessment.setTotalScore(totalScore);
+        assessment.setRiskCategory(riskCategory);
+
+        assessment = riskAssessmentRepository.save(assessment);
+
+        // Response DTO
+        RiskAssessmentResponseDto response = new RiskAssessmentResponseDto();
+        response.setRiskId(assessment.getRiskId());
+        response.setUnderwritingId(caseId);
+        response.setAgeScore(ageScore);
+        response.setMedicalScore(medicalScore);
+        response.setOccupationScore(occupationScore);
+        response.setLifestyleScore(lifestyleScore);
+        response.setFinancialScore(financialScore);
+        response.setTotalScore(totalScore);
+        response.setRiskCategory(riskCategory);
+
+        return new ApiResponse<>(
+                true,
+                "Risk assessment calculated successfully",
+                response,
+                LocalDateTime.now()
+        );
     }
 
     @Override
