@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.insurance_policy_system.enums.policy_insurance.EndorsementType;
 
 import java.time.LocalDateTime;
 

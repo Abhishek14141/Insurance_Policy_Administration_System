@@ -1,4 +1,4 @@
-package org.example.insurance_policy_system.entity.policy_insurance;
+package org.example.insurance_policy_system.enums.policy_insurance;
 
 public enum PolicyStatus {
     DRAFT,

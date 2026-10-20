@@ -1,4 +1,4 @@
-package org.example.insurance_policy_system.entity.quote;
+package org.example.insurance_policy_system.enums.quote;
 
 public enum RiskCategory {
     LOW,
