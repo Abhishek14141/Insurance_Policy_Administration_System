@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.insurance_policy_system.enums.quote.RiskCategory;
 
 @Entity
 @Data
