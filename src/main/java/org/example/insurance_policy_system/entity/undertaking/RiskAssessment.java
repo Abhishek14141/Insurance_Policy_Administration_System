@@ -18,6 +18,8 @@ public class RiskAssessment {
 
     @Column(name = "medical_score")
     private Integer medicalScore;
+    @Column(name = "age_score")
+    private Integer ageScore;
 
     @Column(name = "occupation_score")
     private Integer occupationScore;

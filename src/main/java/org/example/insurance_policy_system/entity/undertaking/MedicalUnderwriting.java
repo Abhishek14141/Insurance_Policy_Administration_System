@@ -1,9 +1,11 @@
 package org.example.insurance_policy_system.entity.undertaking;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
 @Entity
+@Data
 @Table(name = "medical_underwriting")
 public class MedicalUnderwriting {
 
@@ -25,11 +27,23 @@ public class MedicalUnderwriting {
     @Column(name = "bmi", precision = 5, scale = 2)
     private BigDecimal bmi;
 
+    @Column(name = "age")
+    private Integer age;
     @Column(name = "smoking")
     private Boolean smoking;
 
     @Column(name = "alcohol")
     private Boolean alcohol;
+
+    @Column(name = "adventure_sports")
+    private Boolean adventureSports;
+
+    @Column(name = "frequent_international_travel")
+    private Boolean frequentInternationalTravel;
+
+    @Column(name = "dangerous_hobbies")
+    private Boolean dangerousHobbies;
+
 
     @Column(name = "medical_history", columnDefinition = "TEXT")
     private String medicalHistory;

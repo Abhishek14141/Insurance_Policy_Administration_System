@@ -1,11 +1,13 @@
 package org.example.insurance_policy_system.entity.undertaking;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "financial_underwiritng")
+@Data
 public class FinancialUnderwriting {
 
     @Id
