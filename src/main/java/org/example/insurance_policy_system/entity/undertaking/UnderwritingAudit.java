@@ -14,8 +14,9 @@ public class UnderwritingAudit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long auditId;
 
-    @Column(nullable = false)
-    private Long caseId;
+    @ManyToOne
+    @JoinColumn(name = "underwriting_id", nullable = false)
+    private UnderwritingCase underwritingCase;
 
     @Column(nullable = false)
     private String action;

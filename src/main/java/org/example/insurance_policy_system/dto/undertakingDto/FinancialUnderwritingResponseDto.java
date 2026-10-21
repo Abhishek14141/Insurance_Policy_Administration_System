@@ -9,11 +9,14 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FinancialUnderwritingResponseDto {
+
     private Long financialId;
     private Long underwritingId;
     private BigDecimal annualIncome;
     private String employerName;
+    private BigDecimal monthlyIncome;
     private String occupation;
     private BigDecimal existingInsurance;
     private BigDecimal loanLiability;
+
 }

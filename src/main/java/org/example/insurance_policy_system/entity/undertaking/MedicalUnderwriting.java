@@ -27,6 +27,18 @@ public class MedicalUnderwriting {
     @Column(name = "bmi", precision = 5, scale = 2)
     private BigDecimal bmi;
 
+    @Column(name = "blood_pressure", length = 50)
+    private String bloodPressure;
+
+    @Column(name = "diabetes")
+    private Boolean diabetes;
+
+    @Column(name = "heart_disease")
+    private Boolean heartDisease;
+
+    @Column(name = "cancer_history")
+    private Boolean cancerHistory;
+
     @Column(name = "age")
     private Integer age;
     @Column(name = "smoking")

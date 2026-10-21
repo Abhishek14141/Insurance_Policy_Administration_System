@@ -12,9 +12,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class FinancialUnderwritingRequestDto {
 
-    private BigDecimal annualIncome;
     private String employerName;
-    private String occupation;
+    private BigDecimal monthlyIncome;
     private BigDecimal existingInsurance;
     private BigDecimal loanLiability;
 }

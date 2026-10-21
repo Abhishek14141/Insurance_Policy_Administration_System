@@ -1,8 +1,9 @@
 package org.example.insurance_policy_system.entity.undertaking;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.example.insurance_policy_system.enums.RiskLevel;
-
+@Data
 @Entity
 @Table(name = "risk_score")
 public class RiskAssessment {
