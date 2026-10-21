@@ -1,10 +1,10 @@
-package org.example.insurance_policy_system.dto.claimsettlement;
+package org.example.insurance_policy_system.dto.claimmanagement;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.insurance_policy_system.enums.claimsettlement.SettlementStatus;
+import org.example.insurance_policy_system.enums.claimmanagement.SettlementStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package org.example.insurance_policy_system.dto.claimsettlement;
+package org.example.insurance_policy_system.dto.claimmanagement;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

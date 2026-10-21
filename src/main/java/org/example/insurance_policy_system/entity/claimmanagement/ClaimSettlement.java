@@ -1,9 +1,9 @@
-package org.example.insurance_policy_system.entity.claimsettlement;
+package org.example.insurance_policy_system.entity.claimmanagement;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.insurance_policy_system.enums.claimsettlement.SettlementStatus;
+import org.example.insurance_policy_system.enums.claimmanagement.SettlementStatus;
 
 
 import java.math.BigDecimal;
@@ -20,8 +20,10 @@ public class ClaimSettlement {
 @Column(name = "settlement_id")
     private  Long settlementId;
 
-    @Column(name = "claim_id")
-private Long claimId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "claim_id", referencedColumnName = "claim_id")
+private ClaimMaster claimId;
 
     @Column(name = "approved_amount" , precision = 15, scale = 2)
     private BigDecimal approvedAmount;
