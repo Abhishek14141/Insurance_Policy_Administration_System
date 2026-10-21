@@ -2,7 +2,7 @@ package org.example.insurance_policy_system.serviceimpl.undertakingServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.insurance_policy_system.configuration.QuoteClient;
+import org.example.insurance_policy_system.client.QuoteClient;
 import org.example.insurance_policy_system.dto.undertakingDto.*;
 import org.example.insurance_policy_system.entity.ApiResponse;
 import org.example.insurance_policy_system.entity.undertaking.FinancialUnderwriting;

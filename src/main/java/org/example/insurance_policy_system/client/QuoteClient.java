@@ -1,4 +1,4 @@
-package org.example.insurance_policy_system.configuration;
+package org.example.insurance_policy_system.client;
 
 import org.example.insurance_policy_system.dto.undertakingDto.QuoteResponse;
 import org.springframework.cloud.openfeign.FeignClient;
