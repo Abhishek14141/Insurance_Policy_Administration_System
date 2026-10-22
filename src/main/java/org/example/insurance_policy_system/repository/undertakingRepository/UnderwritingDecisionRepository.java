@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface UnderwritingDecisionRepository extends JpaRepository<UnderwritingDecision,Long> {
-    List<UnderwritingDecision> findByUnderwritingCase_UnderwritingId(Long underwritingId);}
+    Optional<UnderwritingDecision> findByUnderwritingCase_UnderwritingId(Long underwritingId);}

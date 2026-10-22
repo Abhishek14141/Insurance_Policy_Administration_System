@@ -14,6 +14,8 @@ public class MedicalUnderwritingResponseDto {
     private BigDecimal height;
     private BigDecimal weight;
     private BigDecimal bmi;
+    private Integer age;
+
     private String medicalHistory;
     private String medicalReportPath;
     private Boolean smoking;

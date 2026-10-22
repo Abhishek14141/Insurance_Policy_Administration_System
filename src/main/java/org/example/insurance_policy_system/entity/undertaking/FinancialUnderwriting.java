@@ -22,6 +22,8 @@ public class FinancialUnderwriting {
     @Column(name = "annual_income", precision = 15, scale = 2)
     private BigDecimal annualIncome;
 
+    @Column(name = "monthly_income", precision = 15, scale = 2)
+    private BigDecimal monthlyIncome;
     @Column(name = "employer_name", length = 150)
     private String employerName;
 
