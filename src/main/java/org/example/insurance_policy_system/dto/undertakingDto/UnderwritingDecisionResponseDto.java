@@ -15,8 +15,8 @@ public class UnderwritingDecisionResponseDto {
     private Long underwritingId;
     private UnderwritingDecisionStatus decision;
     private BigDecimal loadingPercentage;
-    private String exclusionDetails;
     private Long approvedBy;
+    private String rejectionReason;
     private LocalDateTime decisionDate;
 
 }

@@ -16,14 +16,10 @@ import java.math.BigDecimal;
 public class UnderwritingDecisionRequestDto {
     @NotNull
     private UnderwritingDecisionStatus decision;
-
-    @DecimalMin("0.00")
-    @DecimalMax("100.00")
-    private BigDecimal loadingPercentage;
-
-    private String exclusionDetails;
-
     @NotNull
     @Positive
     private Long approvedBy;
+
+    private String rejectionReason;
+
 }
