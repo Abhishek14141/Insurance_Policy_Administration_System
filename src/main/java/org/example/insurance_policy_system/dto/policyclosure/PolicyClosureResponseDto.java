@@ -1,12 +1,11 @@
-
 package org.example.insurance_policy_system.dto.policyclosure;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.insurance_policy_system.entity.policyclosure.PolicyClosureStatus;
-import org.example.insurance_policy_system.entity.policyclosure.PolicyClosureType;
+import org.example.insurance_policy_system.entity.policyclosure.ClosureStatus;
+import org.example.insurance_policy_system.entity.policyclosure.ClosureType;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,12 +15,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PolicyClosureResponseDto {
-
     private Long closureId;
     private String closureNumber;
     private Long policyId;
-    private PolicyClosureType closureType;
-    private PolicyClosureStatus closureStatus;
+    private ClosureType closureType;
+    private ClosureStatus closureStatus;
     private LocalDate policyExpiryDate;
     private Long closedBy;
     private LocalDateTime closureDate;

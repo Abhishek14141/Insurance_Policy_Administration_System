@@ -1,6 +1,4 @@
-
 package org.example.insurance_policy_system.entity.policyclosure;
-
-public enum PolicyClosureType {
+public enum ClosureType {
     MATURITY
 }
