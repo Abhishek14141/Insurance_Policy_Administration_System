@@ -83,3 +83,13 @@ CREATE TABLE IF NOT EXISTS product_commission (
 INSERT IGNORE INTO premium_frequency(frequency_name, installment_count, status) VALUES
 ('Monthly',12,'ACTIVE'),('Quarterly',4,'ACTIVE'),('Half-Yearly',2,'ACTIVE'),
 ('Yearly',1,'ACTIVE'),('Single Premium',1,'ACTIVE');
+
+
+ALTER TABLE insurance_product
+    ADD COLUMN minimum_policy_term_years INT NULL,
+ADD COLUMN maximum_policy_term_years INT NULL;
+
+UPDATE insurance_product
+SET minimum_policy_term_years = 1,
+    maximum_policy_term_years = 30
+WHERE product_id = 1;
