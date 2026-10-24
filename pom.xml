@@ -6,17 +6,18 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.1.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <groupId>org.example</groupId>
-    <artifactId>Insurance_Policy_System</artifactId>
+    <artifactId>insurance-policy-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Insurance_Policy_System</name>
-    <description>Insurance_Policy_System</description>
+    <name>insurance-policy-system</name>
+    <description>insurance-policy-system</description>
 
     <properties>
         <java.version>17</java.version>
+        <spring-cloud.version>2025.1.3</spring-cloud.version>
     </properties>
 
     <!-- Spring Cloud version management -->
@@ -76,10 +77,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc</artifactId>
-        </dependency>
 
         <!-- Eureka Client -->
         <dependency>
@@ -100,6 +97,8 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -185,13 +184,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Source: https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>3.2.7</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
