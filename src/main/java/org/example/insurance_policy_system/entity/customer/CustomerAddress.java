@@ -3,10 +3,9 @@ package org.example.insurance_policy_system.entity.customer;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.insurance_policy_system.enums.customer.AddressType;
 
 @Entity
-@Table(name = "customer_address")
+@Table(name = "Customer_Address")
 @Data
 @NoArgsConstructor
 public class CustomerAddress {
@@ -20,28 +19,27 @@ public class CustomerAddress {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "address_type", length = 30)
-    private AddressType addressType;
+    @Column(name = "address_line", nullable = false)
+    private String addressLine;
 
-    @Column(name = "address_line1", nullable = false)
-    private String addressLine1;
-
-    @Column(name = "address_line2")
+    @Column(name = "address_line_2")
     private String addressLine2;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String city;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String district;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String state;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "pincode", nullable = false, length = 10)
+    private String pincode;
+
+    @Column(nullable = false)
     private String country;
 
-    @Column(nullable = false, length = 10)
-    private String pincode;
+    @Column(name = "address_type")
+    private String addressType;
 }
