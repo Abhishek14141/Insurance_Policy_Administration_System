@@ -16,7 +16,7 @@ public class ClaimResponseDto {
     private String claimType;
     private LocalDate incidentDate;
     private LocalDate claimDate;
-    private String description;
+   // private String description;
     private BigDecimal estimatedLoss;
     private ClaimStatus claimStatus;
 }

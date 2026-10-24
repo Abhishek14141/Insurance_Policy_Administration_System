@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClaimMasterRepository  extends JpaRepository<ClaimMaster, Long> {
+
+
+    boolean existsByCustomerIdAndClaimType(Long customerId, String claimType);
+
 }

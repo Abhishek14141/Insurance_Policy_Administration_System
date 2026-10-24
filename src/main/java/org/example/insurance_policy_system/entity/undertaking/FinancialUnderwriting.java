@@ -1,13 +1,11 @@
 package org.example.insurance_policy_system.entity.undertaking;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "financial_underwiritng")
-@Data
 public class FinancialUnderwriting {
 
     @Id
@@ -22,8 +20,6 @@ public class FinancialUnderwriting {
     @Column(name = "annual_income", precision = 15, scale = 2)
     private BigDecimal annualIncome;
 
-    @Column(name = "monthly_income", precision = 15, scale = 2)
-    private BigDecimal monthlyIncome;
     @Column(name = "employer_name", length = 150)
     private String employerName;
 
