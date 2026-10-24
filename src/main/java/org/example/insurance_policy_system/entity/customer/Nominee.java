@@ -1,14 +1,14 @@
 package org.example.insurance_policy_system.entity.customer;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "nominee")
+@Table(name = "Nominee")
 @Data
 @NoArgsConstructor
 public class Nominee {
@@ -22,19 +22,16 @@ public class Nominee {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Column(name = "nominee_name", nullable = false, length = 150)
+    @Column(name = "nominee_name", nullable = false)
     private String nomineeName;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String relationship;
 
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Column(name = "mobile_number", length = 15)
-    private String mobileNumber;
-
     @Column(name = "share_percentage",
-            nullable = false, precision = 5, scale = 2)
+            precision = 5, scale = 2, nullable = false)
     private BigDecimal sharePercentage;
 }
