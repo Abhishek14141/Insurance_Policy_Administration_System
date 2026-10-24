@@ -14,15 +14,17 @@ public class ClaimAssessmentRequestDto {
     @DecimalMin("0.00")
     private BigDecimal assessedAmount;
 
-    @NotNull
-    @DecimalMin("0.00")
-    private BigDecimal deductible;
+    private Long coverageId;
+//
+//    @NotNull
+//    @DecimalMin("0.00")
+//    private BigDecimal deductible;
 
-    @NotNull
-    @DecimalMin("0.00")
-    private BigDecimal depreciation;
-
-    @NotNull
-    @DecimalMin("0.00")
-    private BigDecimal nonPayable;
+//    @NotNull
+//    @DecimalMin("0.00")
+//    private BigDecimal depreciation;
+//
+//    @NotNull
+//    @DecimalMin("0.00")
+//    private BigDecimal nonPayable;
 }

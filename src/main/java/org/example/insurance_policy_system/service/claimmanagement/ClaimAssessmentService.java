@@ -5,12 +5,16 @@ import org.example.insurance_policy_system.dto.claimmanagement.ClaimAssessmentRe
 
 public interface ClaimAssessmentService {
 
-    // Internal functionality: assessment after approval
-    ClaimAssessmentResponseDto assessClaim(
+    ClaimAssessmentResponseDto createAssessment(
             Long claimId,
             ClaimAssessmentRequestDto requestDto
     );
 
-    // Retrieve existing assessment
     ClaimAssessmentResponseDto getAssessment(Long claimId);
+
+    ClaimAssessmentResponseDto updateAssessment(
+            Long claimId,
+            ClaimAssessmentRequestDto requestDto
+    );
+
 }

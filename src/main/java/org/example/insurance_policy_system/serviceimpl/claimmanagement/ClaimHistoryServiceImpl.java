@@ -1,5 +1,6 @@
 package org.example.insurance_policy_system.serviceimpl.claimmanagement;
 
+import lombok.RequiredArgsConstructor;
 import org.example.insurance_policy_system.entity.claimmanagement.ClaimHistory;
 import org.example.insurance_policy_system.entity.claimmanagement.ClaimMaster;
 import org.example.insurance_policy_system.repository.claimmanagement.ClaimHistoryRepository;
@@ -13,20 +14,20 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 
 public class ClaimHistoryServiceImpl implements ClaimHistoryService {
 
     private final ClaimHistoryRepository claimHistoryRepository;
     private final ClaimMasterRepository claimRepository;
 
-    public ClaimHistoryServiceImpl(
-            ClaimHistoryRepository claimHistoryRepository,
-            ClaimMasterRepository claimRepository) {
-
-        this.claimHistoryRepository = claimHistoryRepository;
-        this.claimRepository = claimRepository;
-    }
+//    public ClaimHistoryServiceImpl(
+//            ClaimHistoryRepository claimHistoryRepository,
+//            ClaimMasterRepository claimRepository) {
+//
+//        this.claimHistoryRepository = claimHistoryRepository;
+//        this.claimRepository = claimRepository;
+//    }
 
     @Override
     @Transactional

@@ -41,7 +41,14 @@ private LocalDateTime settlementDate;
 private SettlementStatus settlementStatus;
 
 
+    @Column(name = "razorpay_payout_id", length = 100)
+    private String razorpayPayoutId;
 
+    @Column(name = "idempotency_key", unique = true, length = 100)
+    private String idempotencyKey;
+
+    @Column(name = "settlement_advice_number", length = 100)
+    private String settlementAdviceNumber;
 
 
 }
