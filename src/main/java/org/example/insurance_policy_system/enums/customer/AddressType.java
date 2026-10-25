@@ -1,0 +1,6 @@
+package org.example.insurance_policy_system.enums.customer;
+
+public enum AddressType {
+    PERMANENT,
+    COMMUNICATION
+}

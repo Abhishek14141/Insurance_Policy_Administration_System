@@ -1,0 +1,74 @@
+package org.example.insurance_policy_system.entity.insuranceManagement;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import org.example.insurance_policy_system.enums.insuranceManagement.ProductStatus;
+import org.example.insurance_policy_system.enums.insuranceManagement.ProductType;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "insurance_product")
+@Getter
+@Setter
+@NoArgsConstructor
+public class InsuranceProduct {
+
+ @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+ @Column(name = "product_id")
+ private Long productId;
+
+ @ManyToOne(fetch = FetchType.LAZY, optional = false)
+ @JoinColumn(name = "category_id", nullable = false)
+ private ProductCategory category;
+
+ @Column(name = "product_code", nullable = false, unique = true, length = 30)
+ private String productCode;
+
+ @Column(name = "product_name", nullable = false, unique = true, length = 150)
+ private String productName;
+
+ @Enumerated(EnumType.STRING)
+ @Column(name = "product_type", nullable = false, length = 100)
+ private ProductType productType;
+
+ @Column(columnDefinition = "TEXT")
+ private String description;
+
+ @Column(name = "minimum_age")
+ private Integer minimumAge;
+
+ @Column(name = "maximum_age")
+ private Integer maximumAge;
+
+ @Column(name = "minimum_sum_insured", precision = 15, scale = 2)
+ private BigDecimal minimumSumInsured;
+
+ @Column(name = "maximum_sum_insured", precision = 15, scale = 2)
+ private BigDecimal maximumSumInsured;
+
+ // Minimum and maximum policy duration in years
+ @Column(name = "minimum_policy_term_years")
+ private Integer minimumPolicyTermYears;
+
+ @Column(name = "maximum_policy_term_years")
+ private Integer maximumPolicyTermYears;
+
+ @Enumerated(EnumType.STRING)
+ @Column(nullable = false, length = 20)
+ private ProductStatus status = ProductStatus.INACTIVE;
+
+ @Column(name = "created_at", insertable = false, updatable = false)
+ private LocalDateTime createdAt;
+
+ @Column(name = "updated_at", insertable = false, updatable = false)
+ private LocalDateTime updatedAt;
+
+
+ private BigDecimal productRate;
+}
