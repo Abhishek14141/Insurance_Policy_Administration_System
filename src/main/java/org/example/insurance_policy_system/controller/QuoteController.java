@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/v1/quotes")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "http://localhost:4200")
 public class QuoteController {
     private final QuoteService quoteService;
 

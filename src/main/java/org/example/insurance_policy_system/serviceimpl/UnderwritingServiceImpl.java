@@ -53,9 +53,11 @@ public class UnderwritingServiceImpl implements UnderwritingService {
     public ApiResponse<UnderwritingResponseDto> createCase(UnderwritingRequestDto request) {
         log.info("Creating underwriting case for quoteId={}", request.getQuoteId());
         Quote quote = quoteRepository.findById(request.getQuoteId()).orElseThrow(() -> new BusinessException("Quote not found: " + request.getQuoteId()));
-        if (quote.getQuoteStatus() == QuoteStatus.REJECTED || quote.getQuoteStatus() == QuoteStatus.EXPIRED)
-            throw new BusinessException("Rejected or expired quote cannot proceed to underwriting.");
-        if (caseRepository.existsByQuoteId(request.getQuoteId()))
+        if (quote.getQuoteStatus() != QuoteStatus.APPROVED) {
+            throw new BusinessException(
+                    "Only approved quotes can proceed to underwriting."
+            );
+        }if (caseRepository.existsByQuoteId(request.getQuoteId()))
             throw new BusinessException("Underwriting case already exists for this quote.");
         UnderwritingCase entity = new UnderwritingCase();
         entity.setQuoteId(quote.getQuoteId());

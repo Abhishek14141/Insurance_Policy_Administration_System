@@ -13,7 +13,5 @@ public interface QuoteService {
     ApiResponse<QuoteResponseDto> rejectQuote(Long quoteId, String remarks);
     ApiResponse<PremiumCalculationResponseDto> calculatePremium(PremiumCalculationRequestDto request);
     PremiumCalculationResponseDto getPremium(Long quoteId);
-    ApiResponse<QuoteRiskAssessmentResponseDto> assessRisk(QuoteRiskAssessmentRequestDto request);
-    ApiResponse<QuoteRiskAssessmentResponseDto> getRisk(Long quoteId);
     ApiResponse<List<QuoteHistoryResponseDto>> getHistory(Long quoteId);
 }

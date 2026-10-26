@@ -38,7 +38,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public CategoryResponseDto update(Long id, CategoryRequestDto r) {
-        ProductCategory e = repository.findById(id).orElseThrow(() -> new BusinessException("Product category not found: " + id));
+        ProductCategory e = repository.findById(id)
+                .orElseThrow(() -> new BusinessException("Product category not found: " + id));
         if (!e.getCategoryName().equalsIgnoreCase(r.getCategoryName()) && repository.existsByCategoryNameIgnoreCase(r.getCategoryName()))
             throw new BusinessException("Category already exists");
         e.setCategoryName(r.getCategoryName());

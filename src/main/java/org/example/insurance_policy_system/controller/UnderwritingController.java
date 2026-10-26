@@ -21,6 +21,7 @@ import java.util.List;
 @RequestMapping("/api/v1/underwriting")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "http://localhost:4200")
 public class UnderwritingController {
     private final UnderwritingService underwritingService;
 

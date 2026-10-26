@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CoverageController {
     private final ProductMasterService service;
 

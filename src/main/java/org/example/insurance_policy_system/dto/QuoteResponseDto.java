@@ -17,5 +17,4 @@ public class QuoteResponseDto {
     private LocalDate quoteDate;
     private LocalDate expiryDate;
     private String quoteStatus;
-    private String underwritingStatus;
 }

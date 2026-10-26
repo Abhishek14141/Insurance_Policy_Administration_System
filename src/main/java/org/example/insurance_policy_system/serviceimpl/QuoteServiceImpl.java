@@ -221,43 +221,6 @@ public class QuoteServiceImpl implements QuoteService {
         return d;
     }
     @Override
-    @Transactional
-    public ApiResponse<QuoteRiskAssessmentResponseDto> assessRisk(QuoteRiskAssessmentRequestDto request) {
-        Long quoteId = request.getQuoteId();
-        log.info("Reading underwriting risk for quoteId={}", quoteId);
-        Quote quote = findQuote(quoteId);
-        UnderwritingCase underwritingCase = underwritingCaseRepository.findByQuoteId(quoteId)
-                .orElseThrow(() -> new BusinessException("Underwriting case not found. Create the underwriting case and calculate risk first."));
-        RiskAssessment risk = underwritingRiskRepository.findByUnderwritingCase_UnderwritingId(underwritingCase.getUnderwritingId())
-                .orElseThrow(() -> new BusinessException("Risk factors have not been calculated in underwriting yet. Calculate underwriting risk first."));
-
-        QuoteRiskAssessment saved = quoteRiskRepository.findFirstByQuote_QuoteIdOrderByRiskIdDesc(quoteId).orElseGet(QuoteRiskAssessment::new);
-        saved.setQuote(quote);
-        saved.setAgeScore(risk.getAgeScore());
-        saved.setMedicalScore(risk.getMedicalScore());
-        saved.setOccupationScore(risk.getOccupationScore());
-        saved.setLifestyleScore(risk.getLifestyleScore());
-        saved.setFinancialScore(risk.getFinancialScore());
-        saved.setTotalScore(risk.getTotalScore());
-        saved.setRiskCategory(mapCategory(risk.getRiskCategory()));
-        saved = quoteRiskRepository.save(saved);
-        if (saved.getRiskCategory() == QuoteRiskCategory.LOW) quote.setQuoteStatus(QuoteStatus.APPROVED);
-        else quote.setQuoteStatus(QuoteStatus.PENDING);
-        quoteRepository.save(quote);
-        saveHistory(quote, "UPDATED", "Underwriting risk result saved to quote: " + saved.getRiskCategory(), null);
-        writeAudit("RISK_ASSESSED", quoteId, "Saved risk category " + saved.getRiskCategory());
-        return response("Underwriting risk result saved to quote", modelMapper.map(saved, QuoteRiskAssessmentResponseDto.class));
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public ApiResponse<QuoteRiskAssessmentResponseDto> getRisk(Long quoteId) {
-        QuoteRiskAssessment risk = quoteRiskRepository.findFirstByQuote_QuoteIdOrderByRiskIdDesc(quoteId)
-                .orElseThrow(() -> new BusinessException("Quote risk assessment not found. Assess risk after underwriting calculation."));
-        return response("Quote risk fetched successfully", modelMapper.map(risk, QuoteRiskAssessmentResponseDto.class));
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public ApiResponse<List<QuoteHistoryResponseDto>> getHistory(Long quoteId) {
         findQuote(quoteId);
